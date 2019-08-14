@@ -195,8 +195,14 @@ const createPageNodes = async (
 
   if (verbose) console.time(msg)
   await forEach(
-    await queryAll(client, [endpoint], query, paginationSize),
+    await queryAll(
+      client,
+      [NODE_TO_ENDPOINT_MAPPING[endpoint]],
+      query,
+      paginationSize
+    ),
     async entity => {
+      // const node = await nodeFactory(imageArgs)(entity)
       const node = await nodeFactory(entity)
       createNode(node)
       await f(entity)

@@ -38,6 +38,7 @@ export const queryAll = async (
   aggregatedResponse = null
 ) => {
   const data = await queryOnce(client, query, first, after)
+  console.log(`data`, path, data)
   const edges = getOr([], [...path, `edges`], data)
   const nodes = edges.map(edge => edge.node)
 
@@ -46,6 +47,7 @@ export const queryAll = async (
     : nodes
 
   if (get([...path, `pageInfo`, `hasNextPage`], data)) {
+    console.log(`subquery`, path)
     return queryAll(
       client,
       path,

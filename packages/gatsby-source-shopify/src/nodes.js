@@ -126,13 +126,25 @@ export const ProductNode = imageArgs =>
 
     if (node.images && node.images.edges)
       node.images = await map(node.images.edges, async edge => {
-        edge.node.localFile___NODE = await downloadImageAndCreateFileNode(
-          {
-            id: edge.node.id,
-            url: edge.node.originalSrc && edge.node.originalSrc.split(`?`)[0],
-          },
-          imageArgs
-        )
+        try {
+          // console.log(`downloading ${edge.node.originalSrc}`)
+          edge.node.localFile___NODE = await downloadImageAndCreateFileNode(
+            {
+              id: edge.node.id,
+              url: edge.node.originalSrc && edge.node.originalSrc.split(`?`)[0],
+            },
+            imageArgs
+          )
+        } catch {
+          console.error(`ERROR downloading ${edge.node.originalSrc}`)
+          edge.node.localFile___NODE = await downloadImageAndCreateFileNode(
+            {
+              id: edge.node.id,
+              url: edge.node.originalSrc && edge.node.originalSrc.split(`?`)[0],
+            },
+            imageArgs
+          )
+        }
         return edge.node
       })
 
@@ -160,4 +172,10 @@ export const ProductVariantNode = imageArgs =>
 
 export const ShopPolicyNode = createNodeFactory(SHOP_POLICY)
 
-export const PageNode = createNodeFactory(PAGE)
+// export const PageNode = createNodeFactory(PAGE)
+
+export const PageNode = _imageArgs =>
+  createNodeFactory(PAGE, async node => {
+    console.log(`NODEZ`, node)
+    return node
+  })
