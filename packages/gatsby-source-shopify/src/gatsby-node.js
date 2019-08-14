@@ -202,7 +202,6 @@ const createPageNodes = async (
       paginationSize
     ),
     async entity => {
-      // const node = await nodeFactory(imageArgs)(entity)
       const node = await nodeFactory(entity)
       createNode(node)
       await f(entity)

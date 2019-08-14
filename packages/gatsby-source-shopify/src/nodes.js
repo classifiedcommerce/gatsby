@@ -172,10 +172,4 @@ export const ProductVariantNode = imageArgs =>
 
 export const ShopPolicyNode = createNodeFactory(SHOP_POLICY)
 
-// export const PageNode = createNodeFactory(PAGE)
-
-export const PageNode = _imageArgs =>
-  createNodeFactory(PAGE, async node => {
-    console.log(`NODEZ`, node)
-    return node
-  })
+export const PageNode = createNodeFactory(PAGE)
