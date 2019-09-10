@@ -103,6 +103,7 @@ export const sourceNodes = async (
       ])
     }
     if (includeCollections.includes(CONTENT)) {
+      console.log(`INCLUDING CONTENT`)
       promises = promises.concat([
         createNodes(BLOG, BLOGS_QUERY, BlogNode, args),
         createNodes(ARTICLE, ARTICLES_QUERY, ArticleNode, args, async x => {
@@ -142,6 +143,7 @@ const createNodes = async (
   const msg = formatMsg(`fetched and processed ${endpoint} nodes`)
 
   if (verbose) console.time(msg)
+  console.log(`entity`, NODE_TO_ENDPOINT_MAPPING[endpoint], endpoint, query)
   await forEach(
     await queryAll(
       client,
